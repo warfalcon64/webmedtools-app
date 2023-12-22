@@ -1,0 +1,9 @@
+/*
+ * This file has been created by the Vaadin Theme Editor. Please note that
+ * manual changes to individual CSS properties may be overwritten by the theme editor.
+ */
+vaadin-app-layout.main-layout-app-layout-1 { background-color:rgba(37,37,37,1); }
+
+vaadin-app-layout.main-layout-app-layout-1::part(drawer) { background-color:rgba(37,37,37,1); }
+
+vaadin-app-layout.main-layout-app-layout-1::part(navbar) { background-color:rgb(37,37,37,1); }

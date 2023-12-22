@@ -26,6 +26,8 @@ public class MainLayout extends AppLayout {
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
+        //<theme-editor-local-classname>
+        addClassName("main-layout-app-layout-1");
     }
 
     private void addHeaderContent() {

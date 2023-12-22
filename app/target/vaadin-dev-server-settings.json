@@ -1,0 +1,17 @@
+{
+  "frontendFolder": "/Users/amritm/Documents/Webmedtools/webmedtools-app/app/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "/Users/amritm/Documents/Webmedtools/webmedtools-app/app/frontend/generated/jar-resources",
+  "staticOutput": "/Users/amritm/Documents/Webmedtools/webmedtools-app/app/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "/Users/amritm/Documents/Webmedtools/webmedtools-app/app/target/classes/META-INF/VAADIN/config",
+  "frontendBundleOutput": "/Users/amritm/Documents/Webmedtools/webmedtools-app/app/target/classes/META-INF/VAADIN/webapp",
+  "devBundleOutput": "/Users/amritm/Documents/Webmedtools/webmedtools-app/app/src/main/dev-bundle/webapp",
+  "devBundleStatsOutput": "/Users/amritm/Documents/Webmedtools/webmedtools-app/app/src/main/dev-bundle/config",
+  "jarResourcesFolder": "/Users/amritm/Documents/Webmedtools/webmedtools-app/app/frontend/generated/jar-resources",
+  "themeName": "webmedtools-app",
+  "clientServiceWorkerSource": "/Users/amritm/Documents/Webmedtools/webmedtools-app/app/target/sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}
