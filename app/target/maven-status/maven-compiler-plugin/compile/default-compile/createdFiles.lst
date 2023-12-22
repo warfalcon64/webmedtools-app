@@ -1,4 +1,7 @@
+com/webmedtools/application/backend/WordArranger.class
 com/webmedtools/application/views/MainLayout.class
 com/webmedtools/application/Application.class
 com/webmedtools/application/views/etg/ETGView.class
 com/webmedtools/application/views/about/AboutView.class
+com/webmedtools/application/backend/WordMaker.class
+com/webmedtools/application/backend/Generator.class
