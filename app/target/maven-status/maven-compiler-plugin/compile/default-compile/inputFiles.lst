@@ -4,4 +4,6 @@
 /Users/amritm/Documents/Webmedtools/webmedtools-app/app/src/main/java/com/webmedtools/application/views/MainLayout.java
 /Users/amritm/Documents/Webmedtools/webmedtools-app/app/src/main/java/com/webmedtools/application/backend/Generator.java
 /Users/amritm/Documents/Webmedtools/webmedtools-app/app/src/main/java/com/webmedtools/application/views/about/AboutView.java
+/Users/amritm/Documents/Webmedtools/webmedtools-app/app/src/main/java/com/webmedtools/application/backend/EmbeddedPDFDocument.java
+/Users/amritm/Documents/Webmedtools/webmedtools-app/app/src/main/java/com/webmedtools/application/data/service/ETGService.java
 /Users/amritm/Documents/Webmedtools/webmedtools-app/app/src/main/java/com/webmedtools/application/views/etg/ETGView.java

@@ -85,6 +85,7 @@ public class WordArranger {
                 .replace(",", "")
                 .replace(" .", ".")
                 .replace("\n.", ".\n")
+                .replace("\n ", "\n")
                 .replace(" .", ".") // Need this because the previous replace changes spacing of periods sometimes
                 .trim();
 

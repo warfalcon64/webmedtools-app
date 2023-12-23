@@ -11,12 +11,15 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.server.VaadinSession;
+import com.webmedtools.application.data.service.ETGService;
 import com.webmedtools.application.views.MainLayout;
 
 @PageTitle("ETG")
 @Route(value = "ETG", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 public class ETGView extends VerticalLayout {
+    ETGService eService = new ETGService();
 
     Button generate = new Button("Generate");
     Button download = new Button("Download (PDF)");
@@ -38,8 +41,8 @@ public class ETGView extends VerticalLayout {
     private HorizontalLayout buttonLayout() {
         generate.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         generate.addClickListener(click -> {
-            //eService.fillTextArea(textArea);
-            //VaadinSession.getCurrent().setAttribute(TextArea.class, textArea);
+            eService.fillTextArea(textArea);
+            VaadinSession.getCurrent().setAttribute(TextArea.class, textArea);
         });
 
         // Create a download button
