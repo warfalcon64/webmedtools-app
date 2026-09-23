@@ -6,6 +6,7 @@ to z in random words (spec §0). Next.js 16 with static export, TypeScript, Tail
 ## Commands
 - `npm run dev`, `npm test` (Vitest, then the peer-review script's `node --test`), `npm run typecheck`,
   `npm run build` (static site in `out/`). Node 22.12 or later.
+- Hosting: Cloudflare Workers serves `out/` (`wrangler.jsonc`); every push to `main` deploys (ADR 0004).
 - Peer review: `node --env-file=.env scripts/peer-review.mjs`. It costs money: the first run was $0.26 for 16k tokens
   in. Flags are in `docs/workflow/project.md`.
 - How to check the running app without a person is in `docs/workflow/project.md` (Real checks).
@@ -41,5 +42,6 @@ and `docs/workflow/project.md` for the commands and paths they defer to.
   same commit, update what the change made stale, delete what stopped being true.
 
 ## Next up
-- Hosting on Cloudflare Pages, when the owner sets up the account: build `npm run build`, output `out/`, Node 22.12+.
-- Check worksheet printing in Safari and Firefox; only Chrome is verified (ADR 0005).
+- Connect the repo in Cloudflare: Workers & Pages → Create → Import a repository → `warfalcon64/webmedtools-app`,
+  name `webmedtools`, build `npm run build`, deploy `npx wrangler deploy`. Drop this line once a push has deployed.
+- Deferred by the owner: check worksheet printing in Safari and Firefox; only Chrome is verified (ADR 0005).

@@ -10,7 +10,8 @@ runs, which is weak for search and ad review.
 
 ## Decision
 Next.js (App Router, TypeScript, Tailwind) with `output: "export"` in `next.config.ts`. `npm run build` writes
-static HTML to `out/`, meant for a free static host that allows ads, such as Cloudflare Pages.
+static HTML to `out/`, which Cloudflare Workers serves as static assets with no Worker script (`wrangler.jsonc`).
+Workers Builds deploys every push to `main`. Not Cloudflare Pages: Cloudflare now steers new projects to Workers.
 
 ## Consequences
 Nothing that needs a server is allowed: server actions, route handlers that read the request, redirects, headers,

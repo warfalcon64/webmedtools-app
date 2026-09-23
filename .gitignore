@@ -12,3 +12,6 @@
 /coverage/
 next-env.d.ts
 *.tsbuildinfo
+
+# Wrangler local state (generated)
+/.wrangler/

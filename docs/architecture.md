@@ -10,8 +10,8 @@ to open. Why things are this way lives in `docs/adr/`; terms are defined in `doc
 | pages (Next.js App Router, React, Tailwind) | `app/` | npm packages, `app/`, `lib/` |
 | tool logic, plain TypeScript with no React | `lib/` | npm packages, `lib/` |
 
-There is no server: `next build` pre-renders every page to `out/` (ADR 0004). Everything a tool computes runs in the
-browser.
+There is no server: `next build` pre-renders every page to `out/`, which Cloudflare Workers serves as static assets
+(ADR 0004). Everything a tool computes runs in the browser.
 
 ## The site shell
 - `app/tools.ts` — the one list of tools; the header menu and the home page both read it. A tool without an `href`
@@ -28,6 +28,7 @@ browser.
 
 ## Where things live
 - `next.config.ts` (static export), `vitest.config.mts` (keeps Vitest out of `scripts/` and `Webmedtools/`).
+- `wrangler.jsonc` (the Cloudflare Worker that serves `out/`), `.node-version` (the build's Node).
 - `scripts/peer-review.mjs` — the peer-review tool, copied from the doc-system kit; not part of the site.
 - `AGENTS.md` — Next's own note for coding agents, rewritten by `next dev`.
 - `Webmedtools/` — the legacy Java app, reference only (ADR 0001).
