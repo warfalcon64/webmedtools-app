@@ -14,7 +14,8 @@ to z in random words (spec §0). Next.js 16 with static export, TypeScript, Tail
 - Nothing that needs a server: no server actions, request-reading route handlers, redirects or headers, and no
   default `next/image` loader. Lifting `output: "export"` is a brainstorm (ADR 0004).
 - Never edit, build into or depend on `Webmedtools/`; read it for behaviour only (ADR 0001).
-- The worksheet rules are the legacy generator's; changing one is a brainstorm question, not a fix (ADR 0002).
+- The worksheet rules are in ADR 0002; changing one is a brainstorm question, not a fix.
+- The worksheet preview is the printed page: change one, check the other (ADR 0005).
 - The lead implements directly, with no implementing subagent (ADR 0003).
 
 ## Docs
@@ -25,7 +26,7 @@ to z in random words (spec §0). Next.js 16 with static export, TypeScript, Tail
 - `docs/spec.md` — the design for what is **not** built yet, plus a one-note record of what is. Built work
   collapses to a `**Built.**` note there; the reasoning goes to an ADR, never back into the spec.
 - `docs/workflow/` — the six phases every change walks, one file each. See below.
-- `docs/glossary.md` is not written yet; it starts with the generator port, which brings the first coined terms.
+- `docs/glossary.md` — the terms coined here (exercise, target, filler, sheet).
 - `AGENTS.md` is Next's own note, rewritten by `next dev`; leave it alone. Next 16 is newer than most training data,
   so check an API in `node_modules/next/dist/docs/` (this exact version) before using it.
 
@@ -40,6 +41,5 @@ and `docs/workflow/project.md` for the commands and paths they defer to.
   same commit, update what the change made stale, delete what stopped being true.
 
 ## Next up
-- The owner lists the known issues with the app; the eye test generator is then ported with them in mind.
 - Hosting on Cloudflare Pages, when the owner sets up the account: build `npm run build`, output `out/`, Node 22.12+.
-- Add a source for the guidelines and rewrite ADR 0002 against it.
+- Check worksheet printing in Safari and Firefox; only Chrome is verified (ADR 0005).

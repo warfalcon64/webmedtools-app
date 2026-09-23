@@ -12,7 +12,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
       <body className="min-h-screen bg-white text-slate-900 antialiased">
-        <header className="border-b border-slate-200">
+        <header className="border-b border-slate-200 print:hidden">
           <nav className="mx-auto flex max-w-4xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
             <Link href="/" className="font-semibold">
               WebMedTools
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               ))}
           </nav>
         </header>
-        <main className="mx-auto max-w-4xl px-4 py-8">{children}</main>
+        <main className="mx-auto max-w-4xl px-4 py-8 print:max-w-none print:p-0">{children}</main>
       </body>
     </html>
   );

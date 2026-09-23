@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+/* Always reserve the scrollbar's space, so a page's width never depends on whether it scrolls: the eye test preview
+   scales to its width, and a scrollbar coming and going would rescale it in a loop. */
+html {
+  scrollbar-gutter: stable;
+}

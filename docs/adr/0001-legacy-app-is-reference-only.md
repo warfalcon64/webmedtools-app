@@ -14,5 +14,4 @@ GitHub repo, `warfalcon64/webmedtools-app`: `main` is the renewed app, and the o
 ## Consequences
 Nothing here edits, builds into or depends on `Webmedtools/`, and its uncommitted work in progress is left as it is.
 Its local clone still tracks `origin/main`, which is now the renewed app, so never pull or push from it.
-Once the renewed MVP is finished, `Webmedtools/` and its `.gitignore` line are deleted, and ADR 0002 must point at
-the renewed generator first.
+Once the renewed MVP is finished, `Webmedtools/` and its `.gitignore` line are deleted.

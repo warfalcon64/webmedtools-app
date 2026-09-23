@@ -9,6 +9,7 @@ export type Tool = {
 export const tools: Tool[] = [
   {
     name: "Eye test worksheets",
+    href: "/eye-test",
     description:
       "Printable letter-tracking worksheets for concussion rehabilitation, following the Michigan saccades eye test.",
   },
