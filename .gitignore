@@ -1,0 +1,14 @@
+# Legacy Java app: read-only reference, deleted once the renewed MVP is finished (ADR 0001)
+/Webmedtools/
+
+.peer-review/
+.DS_Store
+.env
+
+# Next.js and npm (generated)
+/node_modules/
+/.next/
+/out/
+/coverage/
+next-env.d.ts
+*.tsbuildinfo
