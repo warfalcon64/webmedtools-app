@@ -18,8 +18,9 @@ There is no server: `next build` pre-renders every page to `out/`, which Cloudfl
   read it.
 - `app/layout.tsx` — page metadata, the font, the theme script, the header menu (`NavLink.tsx`) and the footer.
 - `app/page.tsx` — the home page, tools grouped by kind. `app/icons.tsx` — the line icons and the site's mark.
-- `app/globals.css` — the colour tokens and their dark values (ADR 0006). `app/theme.ts` — the script that sets the
-  theme before the page draws, tested in `theme.test.ts`; `app/ThemeToggle.tsx` — the header's light/dark button.
+- `app/globals.css` — the colour tokens and their dark values, and the panels' `glow` (ADR 0006). `app/theme.ts` — the
+  script that sets the theme before the page draws, tested in `theme.test.ts`; `app/ThemeToggle.tsx` — the header's
+  light/dark button.
 
 ## The eye test tool
 - `app/eye-test/page.tsx` — the page and its instructions, pre-built as HTML.

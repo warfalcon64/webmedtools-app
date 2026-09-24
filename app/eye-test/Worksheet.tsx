@@ -82,7 +82,7 @@ export function Worksheet() {
       {/* Printing uses this paper size, with no margin of its own: the sheets carry their margins. */}
       <style>{`@page { size: ${size.css}; margin: 0; }`}</style>
 
-      <div className="mt-6 grid grid-cols-2 items-end gap-3 rounded-[22px] bg-second-soft p-4 sm:flex sm:flex-wrap sm:gap-4 sm:px-6 sm:py-5 print:hidden">
+      <div className="glow mt-6 grid grid-cols-2 items-end gap-3 rounded-panel bg-second-soft p-4 sm:flex sm:flex-wrap sm:gap-4 sm:px-6 sm:py-5 print:hidden">
         <label className="flex flex-col text-sm font-bold text-on-second">
           Exercises
           <input
@@ -110,14 +110,14 @@ export function Worksheet() {
         </label>
         <button
           onClick={generate}
-          className="col-span-2 rounded-full bg-button px-6 py-2.5 font-bold text-white hover:brightness-110"
+          className="col-span-2 rounded-full bg-button-second px-6 py-2.5 font-bold text-white hover:brightness-110"
         >
           New worksheet
         </button>
         <button
           onClick={() => window.print()}
           disabled={pages.length === 0}
-          className="col-span-2 rounded-full border border-field-line bg-field px-6 py-2.5 font-bold hover:border-accent disabled:opacity-50"
+          className="col-span-2 rounded-full bg-button px-6 py-2.5 font-bold text-white hover:brightness-110 disabled:opacity-50"
         >
           Print or save PDF
         </button>
@@ -138,7 +138,7 @@ export function Worksheet() {
       </div>
 
       {/* The stage's padding sits outside the frame, whose width is what the sheets scale to. */}
-      <div className="mt-6 rounded-[28px] bg-stage p-3 sm:p-8 print:m-0 print:rounded-none print:bg-transparent print:p-0">
+      <div className="glow mt-6 rounded-panel bg-stage p-3 sm:p-8 print:m-0 print:rounded-none print:bg-transparent print:p-0">
         <div
           ref={frameRef}
           className="overflow-hidden print:h-auto! print:overflow-visible"

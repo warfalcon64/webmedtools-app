@@ -5,7 +5,7 @@ import { groups, tools } from "./tools";
 export default function Home() {
   return (
     <>
-      <section className="mt-2 rounded-[28px] bg-linear-135 from-hero-from via-hero-via to-hero-to px-6 py-10 sm:px-14 sm:py-14">
+      <section className="glow mt-2 rounded-panel bg-linear-135 from-hero-from via-hero-via to-hero-to px-6 py-10 sm:px-14 sm:py-14">
         <p className="inline-block rounded-full bg-surface px-3.5 py-1 text-sm font-bold text-second">
           Free · No sign-up · Nothing to install
         </p>
@@ -30,7 +30,7 @@ export default function Home() {
                   <li key={tool.href}>
                     <Link
                       href={tool.href}
-                      className="flex h-full flex-col gap-3 rounded-[22px] border border-line bg-surface p-6 shadow-[0_10px_30px_-12px] shadow-accent/25 hover:border-accent"
+                      className="glow glow-lift flex h-full flex-col gap-3 rounded-panel bg-surface p-6"
                     >
                       <span className="grid size-13 place-items-center rounded-2xl bg-accent-soft text-accent">
                         <Icon className="size-7" />

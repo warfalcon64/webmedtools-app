@@ -23,9 +23,9 @@ field.
 an a to z row, its number and a timing blank, previewed as the printed sheets (ADR 0005). Rules are in ADR 0002.
 
 ## 2. UI overhaul
-**Built.** Rounded blue look in Atkinson Hyperlegible Next, light and dark with a header toggle (ADR 0006); home page
-of built tools grouped by kind; footer disclaimer; restyled eye test controls. The printed sheet is unchanged. The
-About page moved to §5.
+**Built.** Rounded blue look in Atkinson Hyperlegible Next, light and dark with a header toggle, panels on a blue glow
+(ADR 0006); home page of built tools grouped by kind; footer disclaimer; restyled eye test controls. The printed sheet
+is unchanged. The About page moved to §5.
 
 ## 3. First cognitive worksheet
 A second printable, for attention and scanning practice. Leading candidate: letter cancellation, a grid of random

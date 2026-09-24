@@ -22,7 +22,7 @@ const steps = [
 export default function EyeTestPage() {
   return (
     <>
-      <div className="mt-2 rounded-[28px] border border-line bg-surface p-6 sm:p-10 print:hidden">
+      <div className="glow mt-2 rounded-panel bg-surface p-6 sm:p-10 print:hidden">
         <p className="text-sm font-bold text-second">Vision · Printable</p>
         <h1 className="mt-1 text-3xl font-bold sm:text-4xl">Eye test worksheets</h1>
         <p className="mt-3 max-w-2xl text-lg text-muted">
