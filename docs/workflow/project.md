@@ -21,6 +21,9 @@ so it is the only one to rewrite when the kit is copied.
   emulation over the DevTools protocol (`Emulation.setDeviceMetricsOverride`). Worksheets are read against the rules
   in ADR 0002. Print changes: serve `out/`, print over the protocol (`Page.printToPDF` with `preferCSSPageSize`),
   and compare each PDF page's text (`pdftotext -raw`) with the matching preview sheet's words and line breaks.
+  Firefox the same way through `puppeteer-core` (`browser: "firefox"`, `page.pdf` with `preferCSSPageSize`); install
+  it and a Firefox (`npx @puppeteer/browsers install firefox@stable`) in the scratchpad, not the project. Safari
+  cannot print under automation, so the owner checks it through the print dialog.
   Hosting changes: `npx wrangler deploy --dry-run`, then `npx wrangler dev` serves `out/` as Cloudflare does.
 - **Commits.** The owner commits. Never commit without being asked. A push to `main` deploys the live site; push only
   when asked.

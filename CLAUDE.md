@@ -43,4 +43,4 @@ and `docs/workflow/project.md` for the commands and paths they defer to.
   same commit, update what the change made stale, delete what stopped being true.
 
 ## Next up
-- Deferred by the owner: check worksheet printing in Safari and Firefox; only Chrome is verified (ADR 0005).
+- The owner finds the site's UI unrefined: a design pass, to be brainstormed when the owner schedules it, not before.

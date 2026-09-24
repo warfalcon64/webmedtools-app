@@ -13,4 +13,5 @@ and dropped: it means our own wrapping and page breaks again, and a second layou
 sheets, with `@page` set to the paper and exact colours; a PDF comes from the print dialog's "Save as PDF".
 
 ## Consequences
-No PDF library and no Download button. Only Chrome is checked; Safari and Firefox may ignore the `@page` paper size.
+No PDF library and no Download button. Chrome, Safari and Firefox print the sheets as previewed, on Letter and A4,
+with their print dialogs left at the defaults.
