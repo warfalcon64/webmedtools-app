@@ -43,4 +43,4 @@ and `docs/workflow/project.md` for the commands and paths they defer to.
   same commit, update what the change made stale, delete what stopped being true.
 
 ## Next up
-- The owner finds the site's UI unrefined: a design pass, to be brainstormed when the owner schedules it, not before.
+- The roadmap is spec §2 to §5, in order; next is §2, the UI overhaul, starting at its brainstorm.
