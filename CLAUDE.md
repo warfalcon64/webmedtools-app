@@ -43,4 +43,4 @@ and `docs/workflow/project.md` for the commands and paths they defer to.
   same commit, update what the change made stale, delete what stopped being true.
 
 ## Next up
-- The roadmap is spec §2 to §5, in order; next is §2, the UI overhaul, starting at its brainstorm.
+- The roadmap is spec §3 to §5, in order; next is §3, the first cognitive worksheet, starting at its brainstorm.

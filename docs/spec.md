@@ -4,8 +4,8 @@ This doc is the design for what is **not built yet**. A section that ships colla
 naming what shipped, its entry point, and any way the build deviates; the reasoning behind it goes to `docs/adr/`,
 never back into this file. Section numbers are referenced from code and ADRs, so they are never renumbered or removed.
 
-The site shell is built (home page and tools menu, `app/`), and so is the eye test tool (§1). §2 to §5 are the
-roadmap, in order; each is an open design, settled at its own brainstorm.
+The site shell is built (home page and tools menu, `app/`), and so are the eye test tool (§1) and the UI overhaul
+(§2). §3 to §5 are the roadmap, in order; each is an open design, settled at its own brainstorm.
 Parked until the owner promotes one: vision printables (Hart charts, number-naming cards), on-device symptom and
 return-to-play logs, printable home exercise programmes; and asking the doctors what they still do by hand.
 
@@ -23,10 +23,9 @@ field.
 an a to z row, its number and a timing blank, previewed as the printed sheets (ADR 0005). Rules are in ADR 0002.
 
 ## 2. UI overhaul
-The site works but looks unfinished. Wanted: a home page that reads as a hub of tools grouped by kind, a header and a
-footer with About and a medical disclaimer, shared type and colour, and clearer eye test controls. The owner has no
-look in mind yet, so the brainstorm renders two or three directions (home, eye test, phone width) to choose from.
-Open: whether the printed sheet itself is restyled, which ADR 0002 and ADR 0005 govern.
+**Built.** Rounded blue look in Atkinson Hyperlegible Next, light and dark with a header toggle (ADR 0006); home page
+of built tools grouped by kind; footer disclaimer; restyled eye test controls. The printed sheet is unchanged. The
+About page moved to §5.
 
 ## 3. First cognitive worksheet
 A second printable, for attention and scanning practice. Leading candidate: letter cancellation, a grid of random
@@ -42,7 +41,7 @@ flashing, a full-screen mode, and a note to stop if symptoms worsen. Open: which
 
 ## 5. Domain and AdSense
 The owner's domain is moving from Hostinger to Porkbun. For the Worker to serve it, its nameservers must point to
-Cloudflare. AdSense also needs Privacy and About pages, `ads.txt`, and Google's consent message for EEA and UK
-visitors. The owner wants Auto ads, which must never land in a printed sheet or crowd an on-screen exercise. Apply
-once §3 has shipped: AdSense turns down sites with little content. Open: what happens to the workers.dev address, and
-how Auto ads are kept out of the tools.
+Cloudflare. AdSense also needs Privacy and About pages (About was left out of §2), `ads.txt`, and Google's consent
+message for EEA and UK visitors. The owner wants Auto ads, which must never land in a printed sheet or crowd an
+on-screen exercise. Apply once §3 has shipped: AdSense turns down sites with little content. Open: what happens to the
+workers.dev address, and how Auto ads are kept out of the tools.

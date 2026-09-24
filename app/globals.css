@@ -1,5 +1,52 @@
 @import "tailwindcss";
 
+/* The site's colours, light by default. Each is a Tailwind colour (bg-canvas, text-ink, ...), and dark mode only
+   swaps the values, so components name a role and never a theme. The printed sheets keep their own fixed colours. */
+@theme {
+  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #f2f7fc;
+  --color-surface: #fcfeff;
+  --color-ink: #1c2a3a;
+  --color-muted: #566779;
+  --color-line: #d8e3ee;
+  --color-accent: #2d6cb0;
+  --color-accent-soft: #dce9f7;
+  --color-button: #2d6cb0;
+  --color-second: #5a68b8;
+  --color-second-soft: #e5e8f8;
+  --color-on-second: #3a4580;
+  --color-field: #ffffff;
+  --color-field-line: #c7d7e8;
+  --color-stage: #e4edf6;
+  --color-hero-from: #d9e8f8;
+  --color-hero-via: #e9f1f9;
+  --color-hero-to: #e5e8f8;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-canvas: #0f1721;
+  --color-surface: #16212e;
+  --color-ink: #e3eaf2;
+  --color-muted: #9aa9ba;
+  --color-line: #263446;
+  --color-accent: #86b8ee;
+  --color-accent-soft: #1b3150;
+  --color-button: #3877c2;
+  --color-second: #a3aef0;
+  --color-second-soft: #1d2140;
+  --color-on-second: #c3c9f2;
+  --color-field: #0f1721;
+  --color-field-line: #2d3e53;
+  --color-stage: #0a1119;
+  --color-hero-from: #1a2c44;
+  --color-hero-via: #152130;
+  --color-hero-to: #1d2140;
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* Always reserve the scrollbar's space, so a page's width never depends on whether it scrolls: the eye test preview
    scales to its width, and a scrollbar coming and going would rescale it in a loop. */
 html {
