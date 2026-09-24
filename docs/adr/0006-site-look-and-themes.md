@@ -12,6 +12,8 @@ Colours are roles in `app/globals.css` (`bg-canvas`, `text-ink`...); `[data-them
 Atkinson Hyperlegible Next, self-hosted by `next/font`. The theme follows the device until the header toggle saves a
 choice; `app/theme.ts` sets it in `<head>` before the page draws. Panels have no outline: each is `rounded-panel glow`,
 a blurred blue-to-periwinkle copy of its shape behind it. Fields keep a border. The printed sheet keeps its own look.
+The mark (`app/icon.svg`, the header) is a pulse whose peaks form a W, on that gradient: the site is a hub of medical
+tools, so not a tick or an eye.
 
 ## Consequences
 A new colour is a token with a dark value, never a raw Tailwind colour; a new panel is `rounded-panel glow`, never its

@@ -6,6 +6,8 @@ to z in random words (spec §0). Next.js 16 with static export, TypeScript, Tail
 ## Commands
 - `npm run dev`, `npm test` (Vitest, then the peer-review script's `node --test`), `npm run typecheck`,
   `npm run build` (static site in `out/`). Node 22.12 or later.
+- `npm run icons` re-renders `favicon.ico` and `apple-icon.png` after the mark changes (needs `rsvg-convert` and
+  ImageMagick 7).
 - Hosting: Cloudflare Workers serves `out/` (`wrangler.jsonc`) at https://webmedtools-app.amritmenon108.workers.dev;
   every push to `main` deploys (ADR 0004).
 - Peer review: `node --env-file=.env scripts/peer-review.mjs`. It costs money: the first run was $0.26 for 16k tokens

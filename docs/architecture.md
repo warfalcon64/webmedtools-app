@@ -32,6 +32,8 @@ There is no server: `next build` pre-renders every page to `out/`, which Cloudfl
 ## Where things live
 - `next.config.ts` (static export), `vitest.config.mts` (keeps Vitest out of `scripts/` and `Webmedtools/`).
 - `wrangler.jsonc` (the Cloudflare Worker that serves `out/`), `.node-version` (the build's Node).
+- `app/icon.svg` — the mark, as the site icon; `app/favicon.ico` and `app/apple-icon.png` are rendered from it (the
+  square one from `scripts/apple-icon.svg`) by `npm run icons`.
 - `scripts/peer-review.mjs` — the peer-review tool, copied from the doc-system kit; not part of the site.
 - `AGENTS.md` — Next's own note for coding agents, rewritten by `next dev`.
 - `Webmedtools/` — the legacy Java app, reference only (ADR 0001).

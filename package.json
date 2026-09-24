@@ -9,7 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "vitest run --passWithNoTests && node --test scripts/peer-review.test.mjs"
+    "test": "vitest run --passWithNoTests && node --test scripts/peer-review.test.mjs",
+    "icons": "rsvg-convert -w 32 app/icon.svg -o ${TMPDIR:-/tmp}/wmt-32.png && rsvg-convert -w 16 app/icon.svg -o ${TMPDIR:-/tmp}/wmt-16.png && magick ${TMPDIR:-/tmp}/wmt-16.png ${TMPDIR:-/tmp}/wmt-32.png app/favicon.ico && rsvg-convert -w 180 scripts/apple-icon.svg -o app/apple-icon.png"
   },
   "dependencies": {
     "next": "16.3.6",

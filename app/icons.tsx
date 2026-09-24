@@ -37,16 +37,22 @@ export function MoonIcon({ className }: IconProps) {
   );
 }
 
-/** The site's mark: a tick in a circle, in the accent colour. */
+/** The site's mark, as in app/icon.svg: a pulse whose peaks form a W, on the two button colours. */
 export function MarkIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden>
-      <circle cx="16" cy="16" r="16" fill="currentColor" />
+      <defs>
+        <linearGradient id="mark-gradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="var(--color-button)" />
+          <stop offset="1" stopColor="var(--color-button-second)" />
+        </linearGradient>
+      </defs>
+      <circle cx="16" cy="16" r="16" fill="url(#mark-gradient)" />
       <path
-        d="M9 16.5l4.5 4.5L23 11"
+        d="M5.5 15h3l2.4 6.5 5.1-11 5.1 11 2.4-6.5h3"
         fill="none"
-        className="stroke-surface"
-        strokeWidth={3}
+        stroke="#fff"
+        strokeWidth={2.7}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

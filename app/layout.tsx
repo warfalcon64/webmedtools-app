@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <header className="print:hidden">
           <nav className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-2 gap-y-2 px-4 py-4 sm:px-6">
             <Link href="/" className="mr-auto flex items-center gap-2.5 text-xl font-bold">
-              <MarkIcon className="size-8 text-accent" />
+              <MarkIcon className="size-8" />
               WebMedTools
             </Link>
             {tools.map((tool) => (
