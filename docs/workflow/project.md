@@ -16,15 +16,12 @@ so it is the only one to rewrite when the kit is copied.
   `--focus "<what the change is and where to look>"`. The key is `OPENROUTER_API_KEY` in `.env` (git-ignored), and
   `--env-file` is what loads it.
 - **Real checks.** A page change: `npm run build`, then check that `out/<page>.html` already holds the page's text,
-  since pre-built HTML is the point of ADR 0004. UI: run `npx next dev --port <n>` in the background and screenshot it
-  with headless Chrome, in both themes (`prefers-color-scheme` emulation). Plain `--window-size` never goes below 500
-  px, so a phone-width check needs device emulation over the DevTools protocol (`Emulation.setDeviceMetricsOverride`).
-  Worksheets are read against the rules in ADR 0002. Print changes: serve `out/`, print over the protocol
-  (`Page.printToPDF` with `preferCSSPageSize`), and compare each PDF page's text (`pdftotext -raw`) with the matching
-  preview sheet's words and line breaks.
-  Firefox the same way through `puppeteer-core` (`browser: "firefox"`, `page.pdf` with `preferCSSPageSize`); install
-  it and a Firefox (`npx @puppeteer/browsers install firefox@stable`) in the scratchpad, not the project. Safari
-  cannot print under automation, so the owner checks it through the print dialog.
+  since pre-built HTML is the point of ADR 0004. For the rest, serve the build (`npx wrangler dev --port 8788`):
+  `npm run shots` screenshots every page in both themes at desktop and phone width into `.checks/shots/`, and
+  `--css <file> --name <label>` tries a look without touching the code. Print changes: `npm run print-check` prints
+  the eye test in Chrome and Firefox, both themes, Letter and A4, and fails unless every PDF matches its preview
+  sheet for sheet and line for line. Safari cannot print under automation, so the owner checks it through the print
+  dialog. Worksheets are read against the rules in ADR 0002.
   Hosting changes: `npx wrangler deploy --dry-run`, then `npx wrangler dev` serves `out/` as Cloudflare does.
 - **Commits.** The owner commits. Never commit without being asked. A push to `main` deploys the live site; push only
   when asked.

@@ -4,7 +4,7 @@ A site of rehabilitation tools, starting with printable concussion-rehabilitatio
 to z in random words (spec §0). Next.js 16 with static export, TypeScript, Tailwind 4; no server (ADR 0004).
 
 ## Commands
-- `npm run dev`, `npm test` (Vitest, then the peer-review script's `node --test`), `npm run typecheck`,
+- `npm run dev`, `npm test` (Vitest, then the scripts' `node --test`), `npm run typecheck`,
   `npm run build` (static site in `out/`). Node 22.12 or later.
 - `npm run icons` re-renders `favicon.ico` and `apple-icon.png` after the mark changes (needs `rsvg-convert` and
   ImageMagick 7).
@@ -12,7 +12,8 @@ to z in random words (spec §0). Next.js 16 with static export, TypeScript, Tail
   every push to `main` deploys (ADR 0004).
 - Peer review: `node --env-file=.env scripts/peer-review.mjs`. It costs money: the first run was $0.26 for 16k tokens
   in. Flags are in `docs/workflow/project.md`.
-- How to check the running app without a person is in `docs/workflow/project.md` (Real checks).
+- `npm run shots` and `npm run print-check` check the served build (`npx wrangler dev --port 8788`); details are in
+  `docs/workflow/project.md` (Real checks).
 
 ## Rules
 - Nothing that needs a server: no server actions, request-reading route handlers, redirects or headers, and no

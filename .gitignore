@@ -2,6 +2,7 @@
 /Webmedtools/
 
 .peer-review/
+.checks/
 .DS_Store
 .env
 
