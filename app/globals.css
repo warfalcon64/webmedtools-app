@@ -31,33 +31,34 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --color-canvas: #0f1721;
-  --color-surface: #16212e;
+  --color-canvas: #1a2431;
+  --color-surface: #243041;
   --color-ink: #e3eaf2;
   --color-muted: #9aa9ba;
-  --color-line: #263446;
+  --color-line: #334257;
   --color-accent: #86b8ee;
-  --color-accent-soft: #1b3150;
+  --color-accent-soft: #253e5e;
   --color-button: #3877c2;
   --color-second: #a3aef0;
-  --color-second-soft: #1d2140;
+  --color-second-soft: #2a2f52;
   --color-on-second: #c3c9f2;
-  --color-field: #0f1721;
-  --color-field-line: #2d3e53;
-  --color-stage: #0a1119;
-  --color-hero-from: #1a2c44;
-  --color-hero-via: #152130;
-  --color-hero-to: #1d2140;
+  --color-field: #1a2431;
+  --color-field-line: #3a4b61;
+  --color-stage: #121a24;
+  --color-hero-from: #283b55;
+  --color-hero-via: #222f40;
+  --color-hero-to: #2b3052;
   --color-button-second: #5561b8;
-  --color-glow-from: hsl(213 97% 70% / 0.42);
-  --color-glow-to: hsl(233 95% 76% / 0.42);
+  --color-glow-from: hsl(216 85% 10% / 0.9);
+  --color-glow-to: hsl(240 70% 13% / 0.9);
 }
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* Every panel floats on a soft glow, blue to periwinkle, instead of an outline (ADR 0006). A shadow can only be one
-   colour, so the glow is a blurred copy of the panel's shape behind it. It never prints. It sits behind the page, so
-   nothing between a panel and <body> may have a background of its own, or that background hides the glow. */
+   colour, so the glow is a blurred copy of the panel's shape behind it. In both themes it is darker than the canvas,
+   a shadow and never a halo, which is why the dark canvas sits a step off black. It never prints. It sits behind the
+   page, so nothing between a panel and <body> may have a background of its own, or that background hides the glow. */
 @utility glow {
   position: relative;
   &::before {
