@@ -12,6 +12,11 @@ runs, which is weak for search and ad review.
 Next.js (App Router, TypeScript, Tailwind) with `output: "export"` in `next.config.ts`. `npm run build` writes
 static HTML to `out/`, which Cloudflare Workers serves as static assets with no Worker script (`wrangler.jsonc`).
 Workers Builds deploys every push to `main`. Not Cloudflare Pages: Cloudflare now steers new projects to Workers.
+The site is served at `webmedtools.com`, registered at Porkbun with Cloudflare's nameservers. The domain is a custom
+domain route in `wrangler.jsonc`, not a dashboard setting: each deploy replaces the Worker's domains with the file's,
+and a file with no routes and no `workers_dev` line switches workers.dev back on. `workers_dev: false` keeps it off,
+so search sees one copy of the site. `www` redirects to the bare domain through a proxied `www` DNS record and a
+Redirect Rule that matches only https, so Always Use HTTPS is on; these are zone settings the file does not touch.
 
 ## Consequences
 Nothing that needs a server is allowed: server actions, route handlers that read the request, redirects, headers,

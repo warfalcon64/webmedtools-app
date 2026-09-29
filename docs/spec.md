@@ -40,8 +40,8 @@ a saccade trainer (a dot jumping between two points on a beat), a gaze-stabilisa
 flashing, a full-screen mode, and a note to stop if symptoms worsen. Open: which one first.
 
 ## 5. Domain and AdSense
-The owner's domain is moving from Hostinger to Porkbun. For the Worker to serve it, its nameservers must point to
-Cloudflare. AdSense also needs Privacy and About pages (About was left out of §2), `ads.txt`, and Google's consent
-message for EEA and UK visitors. The owner wants Auto ads, which must never land in a printed sheet or crowd an
-on-screen exercise. Apply once §3 has shipped: AdSense turns down sites with little content. Open: what happens to the
-workers.dev address, and how Auto ads are kept out of the tools.
+**Built (domain).** The site is served at `webmedtools.com`; the workers.dev address is off (ADR 0004).
+
+AdSense needs Privacy and About pages (About was left out of §2), `ads.txt`, and Google's consent message for EEA and
+UK visitors. The owner wants Auto ads, which must never land in a printed sheet or crowd an on-screen exercise. Apply
+once §3 has shipped: AdSense turns down sites with little content. Open: how Auto ads are kept out of the tools.

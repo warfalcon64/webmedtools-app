@@ -8,8 +8,8 @@ to z in random words (spec §0). Next.js 16 with static export, TypeScript, Tail
   `npm run build` (static site in `out/`). Node 22.12 or later.
 - `npm run icons` re-renders `favicon.ico` and `apple-icon.png` after the mark changes (needs `rsvg-convert` and
   ImageMagick 7).
-- Hosting: Cloudflare Workers serves `out/` (`wrangler.jsonc`) at https://webmedtools-app.amritmenon108.workers.dev;
-  every push to `main` deploys (ADR 0004).
+- Hosting: Cloudflare Workers serves `out/` (`wrangler.jsonc`) at https://webmedtools.com; every push to `main`
+  deploys (ADR 0004).
 - Peer review: `node --env-file=.env scripts/peer-review.mjs`. It costs money: the first run was $0.26 for 16k tokens
   in. Flags are in `docs/workflow/project.md`.
 - `npm run shots` and `npm run print-check` check the served build (`npx wrangler dev --port 8788`); details are in
