@@ -4,6 +4,10 @@
 
 **Minimum form.** The sentence "no open design question" and move on. Most changes are this.
 
+**Plan mode.** Unless the change is small enough for the minimum form of this phase and the next, enter Claude
+Code's plan mode (`EnterPlanMode`) now. It holds through phase 2 and makes both phases read-only in fact, not only by
+convention.
+
 **Steps**
 1. Read the decision index first (see project.md). A question an existing record answers is closed; say which record
    and move on. Reopen one only with a reason the record does not already address.

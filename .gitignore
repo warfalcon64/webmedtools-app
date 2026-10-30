@@ -16,3 +16,4 @@ next-env.d.ts
 
 # Wrangler local state (generated)
 /.wrangler/
+.claude/handoff/

@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PROJECT_DIR}/scripts/handoff-hook.mjs\" session-start" }]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PROJECT_DIR}/scripts/handoff-hook.mjs\" prompt" }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|Bash|ExitPlanMode",
+        "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PROJECT_DIR}/scripts/handoff-hook.mjs\" post-tool" }]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PROJECT_DIR}/scripts/handoff-hook.mjs\" stop" }]
+      }
+    ]
+  }
+}

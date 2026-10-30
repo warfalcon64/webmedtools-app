@@ -24,6 +24,8 @@ to z in random words (spec §0). Next.js 16 with static export, TypeScript, Tail
 - The lead implements directly, with no implementing subagent (ADR 0003).
 
 ## Docs
+- `docs/handoff.md` — read first: notes on the change in progress, kept current as it goes. Its header holds the
+  rules.
 - `docs/architecture.md` — the shape of the app and which file to open. Read before working in an unfamiliar
   area; update it when structure moves.
 - `docs/adr/README.md` — index of architecture decision records, one row each. Read the row before changing a
@@ -42,6 +44,8 @@ and `docs/workflow/project.md` for the commands and paths they defer to.
 - Peer review sends the uncommitted diff to an outside model from another family, and every finding is checked
   against the code before it is acted on.
 - The owner steers; work stops for them three times: the design choice (1), the go-ahead (2), the commit (6).
+- Through every phase, keep `docs/handoff.md` current as you go, as its header says, so a cleared or compacted
+  session can pick up the work.
 - Merge prep is where the docs get honest: name the ADRs the work adds, rewrites or leaves alone and write them in the
   same commit, update what the change made stale, delete what stopped being true.
 
