@@ -37,5 +37,7 @@ There is no server: `next build` pre-renders every page to `out/`, which Cloudfl
 - `scripts/peer-review.mjs` — the peer-review tool, copied from the doc-system kit; not part of the site.
 - `scripts/shots.mjs`, `scripts/print-check.mjs` — the screenshot and print checks (`npm run shots`, `print-check`),
   sharing `scripts/browsers.mjs`; pure parts tested in `scripts/checks.test.mjs`. Output goes to `.checks/`.
+- `docs/images/` — the README's screenshots, copied from `npm run shots`; re-shoot them when the eye test page's
+  look changes.
 - `AGENTS.md` — Next's own note for coding agents, rewritten by `next dev`.
 - `Webmedtools/` — the legacy Java app, reference only (ADR 0001).

@@ -34,6 +34,8 @@ to z in random words (spec §0). Next.js 16 with static export, TypeScript, Tail
   collapses to a `**Built.**` note there; the reasoning goes to an ADR, never back into the spec.
 - `docs/workflow/` — the six phases every change walks, one file each. See below.
 - `docs/glossary.md` — the terms coined here (exercise, target, filler, sheet).
+- `README.md` — the public page on GitHub. It summarises the spec's roadmap, the ADRs and the commands, so merge prep
+  updates it when one of those changes.
 - `AGENTS.md` is Next's own note, rewritten by `next dev`; leave it alone. Next 16 is newer than most training data,
   so check an API in `node_modules/next/dist/docs/` (this exact version) before using it.
 
