@@ -23,8 +23,8 @@ symptoms get worse.
 
 Patients in concussion rehabilitation practise their eye movements on printed sheets like these, and this site makes a
 fresh one on demand. It began as a Java app in 2023 and was rebuilt for the web as the first of several
-rehabilitation tools. Two practising doctors, in internal and family medicine, check each tool within their field
-before it ships. The site is free and will be supported by ads.
+rehabilitation tools. Two practising doctors, check each tool within their field
+before it ships. The site is free and will be supported by ads in the future.
 
 ## Roadmap
 
