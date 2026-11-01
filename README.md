@@ -47,10 +47,9 @@ npm run build    # static site in out/
 ## How I work on it
 
 I build it with [Sestina](https://github.com/warfalcon64/Sestina),
-my workflow harness for [Claude Code](https://claude.com/claude-code). Every change goes through brainstorm, plan, 
-implement, peer review, harden and merge prep, and I sign off on the design, the start of work and each commit. Peer 
-review sends the diff to a model from a different family. Before a print change ships, `npm run print-check` prints 
-the worksheets in Chrome and Firefox on Letter and A4, and fails if any PDF differs from its preview.
+my workflow harness for [Claude Code](https://claude.com/claude-code). Before a print change ships, 
+`npm run print-check` prints the worksheets in Chrome and Firefox on Letter and A4, and fails if any PDF differs
+from its preview.
 
 ## License
 
