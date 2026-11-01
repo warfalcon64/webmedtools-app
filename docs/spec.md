@@ -15,8 +15,7 @@ that hides the letters a to z, in order, for the patient to find. The app genera
 following the Michigan saccades eye test guidelines (ADR 0002). It is the renewal of a 2023 Java app (ADR 0001), and
 the first of several tools the site is meant to hold. The site is free and ad-supported, found through search and
 word of mouth. It serves patients and clinicians both while adoption is informal, and may turn to clinicians later.
-Two practising doctors the owner knows (internal and family medicine) check each tool before it ships, within their
-field.
+Two practising doctors the owner knows check each tool before it ships, within their field.
 
 ## 1. Eye test worksheets
 **Built.** `/eye-test` (`app/eye-test/`, generator in `lib/eye-test/`): 1 to 100 exercises on Letter or A4, each with
