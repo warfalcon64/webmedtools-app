@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Handoff hook: keep docs/handoff.md and the current workflow phase in Claude's context, and nudge Claude once when a
- * turn ends without writing the handoff.
+ * Handoff hook: keep docs/handoff.md and the current workflow phase in Claude's context, nudge Claude once when a turn
+ * ends without writing the handoff, and refuse a peer review whose output is piped or redirected.
  *
  * A development tool, deliberately outside whatever the repo builds: Node 18+ and nothing else (no package.json, no
  * install, no build step), so it can be copied into a repo in any language. Claude Code runs it with the hook's JSON
@@ -17,6 +17,8 @@
  *                                                 when the handoff's phase moved (never 01 + 02, never git)
  *   node scripts/handoff-hook.mjs stop            nudge once when the handoff is unchanged since the prompt while a
  *                                                 change is in progress (notes in the file, or a dirty git tree)
+ *   node scripts/handoff-hook.mjs pre-tool        refuse a Bash command that pipes or redirects peer-review.mjs's
+ *                                                 output, which holds back its progress lines; needs no handoff
  *
  * The phase is `phase <n>` in the last `## ` heading of the handoff that names one; notes that name none leave it
  * unknown, and no phase file goes in. Phases 1 and 2 happen in plan mode, which cannot
@@ -25,8 +27,9 @@
  * and no key means nothing yet).
  *
  * Wired in .claude/settings.json under hooks.SessionStart (no matcher, so startup, resume, clear and compact all fire),
- * hooks.UserPromptSubmit, hooks.PostToolUse (matcher Edit|Write|MultiEdit|Bash|ExitPlanMode) and hooks.Stop, each a
- * command hook running this script with its event. `.claude/handoff/` holds per-session records and is gitignored.
+ * hooks.UserPromptSubmit, hooks.PreToolUse (matcher Bash), hooks.PostToolUse (matcher
+ * Edit|Write|MultiEdit|Bash|ExitPlanMode) and hooks.Stop, each a command hook running this script with its event.
+ * `.claude/handoff/` holds per-session records and is gitignored.
  *
  * The re-copy notice: DOC_SYSTEM_KIT names the kit on this machine. At a clean point (no notes, git saying the repo is
  * clean, no uncommitted change to a tracked file in the kit, the repo not the kit, and a session that is not a
@@ -61,6 +64,11 @@ export const WORKFLOW_LEAD = 'Every change walks the six phases in docs/workflow
 export const STOP_REASON =
   'docs/handoff.md was not written this turn. If this turn decided, found or built something worth keeping, add it there ' +
   'as its header says, and update its `Now:` line. If nothing is worth keeping, reply with only: Handoff: nothing to add.'
+
+export const REVIEW_REASON =
+  'The peer review runs for minutes, and its `still working` lines are the owner\'s only sign of progress, which a pipe or ' +
+  'redirect holds back. Run the same command again without it. The review is saved to `.peer-review/<stamp>.json`, so ' +
+  'nothing needs cutting.'
 
 // ---------- pure helpers (exported for tests) ----------
 
@@ -111,6 +119,85 @@ export function phaseMoved(record, phase) {
 /** What PostToolUse prints: the text as context. */
 export function postToolOutput(text) {
   return { hookSpecificOutput: { hookEventName: 'PostToolUse', additionalContext: text } }
+}
+
+/** What a refusing PreToolUse prints: a deny with the reason, which Claude reads. */
+export function preToolOutput(reason) {
+  return { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny', permissionDecisionReason: reason } }
+}
+
+/**
+ * A quoted string's text as one word: anything a shell could read as an operator or a space becomes `_`, but
+ * parentheses stay, so text split across quotes keeps a capture balanced. A
+ * double-quoted command substitution keeps its text, so the run inside it can be read.
+ */
+const asWord = (quoted) =>
+  quoted.startsWith('"') && /\$\(|`/.test(quoted) ? quoted.slice(1, -1) : quoted.slice(1, -1).replace(/[^A-Za-z0-9_./=:@+,%~$()-]/g, '_')
+
+/** `node` running a path ending peer-review.mjs, with the options and arguments between them. */
+const REVIEW_RUN = /(?:^|[\s;&|(/`])node((?:\s+[^\s|&;<>()`]+)*?)\s+[^\s|&;<>()`]*peer-review\.mjs(?=$|[\s|&;<>()`])/g
+/** Flags that make a review run short, so its output may go anywhere. */
+const SHORT_RUN = new Set(['--help', '-h', '--dry-run'])
+
+/** A heredoc's opener: `<<`, `<<-` or a quoted delimiter, not the `<<<` of a here-string. */
+const HEREDOC = /(?<!<)<<(?!<)(-?)\s*(['"]?)([^\s'"<>|&;()]+)\2/g
+
+/**
+ * The command with each heredoc's body and closing line blanked, since a body is data, not a run. The opener's line
+ * stays, so a pipe on it is still read; a body that never closes runs to the end.
+ */
+function withoutHeredocs(command) {
+  const kept = []
+  const open = []
+  for (const line of command.split('\n')) {
+    if (open.length) {
+      const { dash, word } = open[0]
+      if ((dash ? line.replace(/^\t+/, '') : line) === word) open.shift()
+      continue
+    }
+    kept.push(line)
+    for (const match of line.matchAll(HEREDOC)) open.push({ dash: match[1] === '-', word: match[3] })
+  }
+  return kept.join('\n')
+}
+
+/** Whether `before` leaves a capture open: `$(`, `<(`, `>(` or a backtick, where a plain `(` is a group, not a capture. */
+function captureOpen(before) {
+  const groups = []
+  let tick = false
+  for (let i = 0; i < before.length; i++) {
+    const char = before[i]
+    if (char === '(') groups.push(i > 0 && '$<>'.includes(before[i - 1]))
+    else if (char === ')') groups.pop()
+    else if (char === '`') tick = !tick
+  }
+  return tick || groups.includes(true)
+}
+
+/**
+ * Whether a shell command runs peer-review.mjs with its output piped, sent to a file or captured: the run inside a
+ * capture still open (`$(…)`, `<(…)`, `>(…)` or backticks), or after the run a lone `|` or a stdout redirect (`>`,
+ * `>>`, `1>`, `&>`, `>|`); `2>`, `2>&1` and `>&2` leave stdout alone. Heredoc bodies are skipped. Quoted strings are
+ * read as plain words (a double-quoted substitution as its text), and text before the run counts only for the
+ * captures it leaves open. A run given --help, -h or --dry-run is short and passes. Best effort: it reads the shell's
+ * text, not its grammar.
+ */
+export function reviewPiped(command) {
+  if (typeof command !== 'string') return false
+  const text = withoutHeredocs(command).replace(/'[^']*'|"(?:\\.|[^"\\])*"/g, asWord)
+  for (const match of text.matchAll(REVIEW_RUN)) {
+    const rest = text.slice(match.index + match[0].length)
+    // The run's own arguments: up to the first operator that is not part of a redirect.
+    const own = rest.match(/^(?:[^|;&()`\n]|(?<=>)&|&(?=>))*/)[0]
+    const words = [...match[1].split(/\s+/), ...own.split(/\s+/)]
+    if (words.some((word) => SHORT_RUN.has(word))) continue
+    if (captureOpen(text.slice(0, match.index + match[0].indexOf('node')))) return true
+    const stdout = rest
+      .replace(/(?<![^\s;&|(])\d*>&\d-?/g, ' ') // 2>&1, >&2: a copy between streams, stdout stays where it was
+      .replace(/(?<![^\s;&|(])[2-9]>>?/g, ' ') // 2> err: stderr only
+    if (/(?<!\|)\|(?!\|)|>/.test(stdout)) return true
+  }
+  return false
 }
 
 /** The handoff's fingerprint: a sha256 of its contents, or a fixed marker when there is no file. */
@@ -248,6 +335,11 @@ function phaseText(dir, phase, lead = phaseLead(phase)) {
 }
 
 async function run(event, input) {
+  if (event === 'pre-tool') {
+    const command = input.tool_input?.command
+    if (input.tool_name === 'Bash' && reviewPiped(command)) process.stdout.write(JSON.stringify(preToolOutput(REVIEW_REASON)) + '\n')
+    return
+  }
   const dir = process.env.CLAUDE_PROJECT_DIR || input.cwd
   if (!dir) return
   const text = readText(join(dir, HANDOFF))

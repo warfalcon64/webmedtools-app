@@ -9,6 +9,7 @@ import { describe, it } from 'node:test'
 import {
   NO_CHANGE_LEAD,
   PLAN_APPROVED_LEAD,
+  REVIEW_REASON,
   contextText,
   decideStop,
   hashOf,
@@ -17,8 +18,10 @@ import {
   phaseMoved,
   phaseOf,
   postToolOutput,
+  preToolOutput,
   recopyText,
   recordName,
+  reviewPiped,
   sessionStartText,
   stopOutput
 } from './handoff-hook.mjs'
@@ -212,6 +215,75 @@ describe('recopyText', () => {
   })
 })
 
+describe('reviewPiped', () => {
+  const KIT = '/Users/a b/doc-system-kit/scripts/peer-review.mjs'
+  it('catches a review whose stdout is piped, redirected or captured', () => {
+    for (const command of [
+      'node scripts/peer-review.mjs | tail -5',
+      'node scripts/peer-review.mjs | tee f',
+      'node scripts/peer-review.mjs > f',
+      'node scripts/peer-review.mjs >> f',
+      'node scripts/peer-review.mjs 1> f',
+      'node scripts/peer-review.mjs &> f',
+      'node scripts/peer-review.mjs >| f',
+      'node scripts/peer-review.mjs 2>&1 > f',
+      '( node scripts/peer-review.mjs > f; echo done ) &',
+      'node --env-file=.env scripts/peer-review.mjs 2>&1 | tail -20',
+      'node scripts/peer-review.mjs --key-file .env | tail',
+      `node "${KIT}" --key-file .env > /tmp/review.txt`,
+      'X=$(node scripts/peer-review.mjs --key-file .env)',
+      'out="$(node scripts/peer-review.mjs)"',
+      'X=`node scripts/peer-review.mjs`',
+      '$(OPENROUTER_API_KEY=x node scripts/peer-review.mjs)',
+      'X=$(cd /tmp && node scripts/peer-review.mjs --key-file .env)',
+      'X=$(env FOO=1 node scripts/peer-review.mjs)',
+      'diff <(node scripts/peer-review.mjs) /dev/null',
+      'node scripts/peer-review.mjs <<EOF | tail\nfocus on the hook\nEOF',
+      'cat <<EOF\nbody\nEOF\nnode scripts/peer-review.mjs | tail'
+    ])
+      assert.equal(reviewPiped(command), true, command)
+  })
+
+  it('passes a bare review, stderr redirects, short runs and commands that only name the file', () => {
+    for (const command of [
+      'node scripts/peer-review.mjs',
+      'node scripts/peer-review.mjs --key-file .env',
+      'node scripts/peer-review.mjs 2>&1',
+      'node scripts/peer-review.mjs 2> err',
+      'node scripts/peer-review.mjs >&2',
+      'node scripts/peer-review.mjs --dry-run | tail',
+      'node scripts/peer-review.mjs --help | head',
+      'node scripts/peer-review.mjs -h > usage.txt',
+      "OPENROUTER_API_KEY=$(sed -n 's/^KEY=//p' .env | tr -d '\\n') node scripts/peer-review.mjs",
+      'node scripts/peer-review.mjs --focus "a | b > c"',
+      "node scripts/peer-review.mjs --focus 'x > y'",
+      'node --test scripts/peer-review.test.mjs | tail',
+      'grep -n x scripts/peer-review.mjs | head',
+      'cat scripts/peer-review.mjs > copy.mjs',
+      'node scripts/peer-review.mjs || true',
+      'ls | head',
+      'X=$(node scripts/peer-review.mjs --dry-run)',
+      'X=$(node scripts/peer-review.mjs --help)',
+      "echo '$(node scripts/peer-review.mjs)'",
+      'X=$(node --test scripts/peer-review.test.mjs)',
+      'OPENROUTER_API_KEY=`cat .env` node scripts/peer-review.mjs --key-file .env',
+      '( node scripts/peer-review.mjs )',
+      'X=$(sed -n p .env) node scripts/peer-review.mjs',
+      'OPENROUTER_API_KEY="$(grep "^KEY=" .env | cut -d= -f2)" node scripts/peer-review.mjs',
+      "git commit -F - <<'END-OF-NOTES'\nnode scripts/peer-review.mjs | tail -5\nEND-OF-NOTES",
+      'cat <<EOF.txt\nnode scripts/peer-review.mjs > f\nEOF.txt',
+      "git commit -F - <<'EOF'\nRun node scripts/peer-review.mjs | tail\nEOF",
+      "python3 - <<'EOF'\ns = 'node scripts/peer-review.mjs > f'\nEOF",
+      'cat <<EOF > notes.txt\nnode scripts/peer-review.mjs | tail\nEOF',
+      'cat <<"EOF"\nnode scripts/peer-review.mjs > f\nEOF',
+      'cat <<-EOF\n\tnode scripts/peer-review.mjs > f\n\tEOF',
+      "cat <<'EOF'\nnode scripts/peer-review.mjs | tail\nnever closed",
+      undefined
+    ])
+      assert.equal(reviewPiped(command), false, command)
+  })
+})
+
 describe('the re-copy notice at session-start', () => {
   it('comes last when the kit has changes and both repos are at a clean point', () => {
     withFakeKit(DRIFT, (kit) =>
@@ -367,6 +439,17 @@ describe('the script', () => {
     })
   })
 
+  it('pre-tool refuses a piped review and stays silent otherwise', () => {
+    inFreshRepo((dir) => {
+      const piped = hook(dir, 'pre-tool', { tool_name: 'Bash', tool_input: { command: 'node scripts/peer-review.mjs | tail -5' } })
+      assert.deepEqual(JSON.parse(piped), preToolOutput(REVIEW_REASON))
+      assert.equal(JSON.parse(piped).hookSpecificOutput.permissionDecision, 'deny')
+      assert.equal(hook(dir, 'pre-tool', { tool_name: 'Bash', tool_input: { command: 'node scripts/peer-review.mjs' } }), '')
+      assert.equal(hook(dir, 'pre-tool', { tool_name: 'Edit', tool_input: { command: 'node scripts/peer-review.mjs | tail' } }), '')
+      assert.equal(hook(dir, 'pre-tool', { tool_name: 'Bash' }), '')
+    })
+  })
+
   it('post-tool gives a moved phase, nothing when it stays, 03 after ExitPlanMode, and keeps the hash', () => {
     inFreshRepo((dir) => {
       appendFileSync(handoff(dir), NOTE)
@@ -487,7 +570,7 @@ describe('the script', () => {
   it('exits 0 with no output on garbage stdin or an unknown event', () => {
     inFreshRepo((dir) => {
       appendFileSync(handoff(dir), NOTE)
-      for (const event of ['session-start', 'prompt', 'post-tool', 'stop']) assert.equal(hook(dir, event, 'not json {'), '')
+      for (const event of ['session-start', 'prompt', 'pre-tool', 'post-tool', 'stop']) assert.equal(hook(dir, event, 'not json {'), '')
       assert.equal(hook(dir, 'nonsense', {}), '')
     })
   })
