@@ -15,7 +15,7 @@
     "icons": "rsvg-convert -w 32 app/icon.svg -o ${TMPDIR:-/tmp}/wmt-32.png && rsvg-convert -w 16 app/icon.svg -o ${TMPDIR:-/tmp}/wmt-16.png && magick ${TMPDIR:-/tmp}/wmt-16.png ${TMPDIR:-/tmp}/wmt-32.png app/favicon.ico && rsvg-convert -w 180 scripts/apple-icon.svg -o app/apple-icon.png"
   },
   "dependencies": {
-    "next": "16.3.6",
+    "next": "16.4.3",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
@@ -25,10 +25,10 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "puppeteer-core": "25.12.0",
+    "puppeteer-core": "25.16.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^5",
-    "wrangler": "4.137.0"
+    "vitest": "^5.0.5",
+    "wrangler": "4.156.0"
   }
 }
