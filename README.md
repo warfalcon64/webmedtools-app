@@ -20,8 +20,8 @@ A4, then print or save a PDF. The preview on screen is exactly what prints.
 It's free, though it will carry ads in the future, and two practising doctors check each tool within their field
 before it goes up. It started as a Java web app in 2023 and is being rebuilt to hold more tools.
 
-> **Not medical advice.** These tools support exercises a clinician has recommended. Stop and talk to your clinician
-> if symptoms get worse.
+This is not medical advice. These tools support exercises a clinician has recommended. Stop and talk to your 
+clinician if symptoms get worse.
 
 ## What's next
 
